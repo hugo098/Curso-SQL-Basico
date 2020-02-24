@@ -51,3 +51,22 @@ WHERE hire_date LIKE '%07';
 
 SELECT to_char(sysdate, 'MM-DD-YYYY HH24:MI:SS') "NOW"
 FROM dual;
+
+--=============================================================--
+
+SELECT TO_DATE( '2016-01-02 01:01:12', 'YYYY-MM-DD HH24:MI:SS' )
+         - TO_DATE( '2016-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
+         AS difference
+FROM   DUAL;
+
+--=============================================================--
+
+SELECT TRUNC( difference                       ) AS days,
+       TRUNC( MOD( difference * 24,       24 ) ) AS hours,
+       TRUNC( MOD( difference * 24*60,    60 ) ) AS minutes,
+       TRUNC( MOD( difference * 24*60*60, 60 ) ) AS seconds
+FROM   (
+  SELECT TO_DATE( '2016-01-02 01:01:12', 'YYYY-MM-DD HH24:MI:SS' )
+         - TO_DATE( '2016-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
+         AS difference
+  FROM   DUAL);
